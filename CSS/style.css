@@ -1,0 +1,359 @@
+/*Texts*/
+
+.big-title {
+
+    font-family: raleway;
+    font-size: 40px;
+    padding: 0 40px;
+    
+}
+
+.description-title {
+
+    font-family: roboto;
+    font-size: 16px;
+    padding: 0 40px;
+    font-weight: 300;
+}
+
+.nav-link-text {
+
+    font-family: roboto;
+    font-size: 14px;
+    color: white;
+
+    padding: 0 40px !important;
+}
+
+.nav-link-text:hover {
+
+    text-decoration: underline;
+    text-underline-offset: 10px;
+    text-decoration-thickness: 3px;
+    text-decoration-color: #AA1A18;
+}
+
+.font-bold {
+
+    font-weight: 700;
+}
+
+.pre-title {
+
+    font-size: 16px;
+    font-weight: 400;
+    font-family: raleway;
+    opacity: 0.5;
+    margin: 0;
+}
+
+/*Sections*/
+
+.black-section, .gray-section {
+
+    padding: 6% 15%;
+}
+
+.black-section {
+
+    background-color: #121212;
+}
+
+.gray-section {
+
+    background-color: #292d2e;
+}
+ 
+.nav-box-shadow {
+
+    box-shadow: 0px 10px 20px #121212;
+    position: relative;
+}
+/*Colors*/
+
+.red-color {
+
+    color: #AA1A18;
+}
+
+.black-color {
+
+    color: #121212;
+
+}
+
+.white-color {
+
+    color: white;
+}
+
+.gray-color {
+
+    color: #292d2e;
+}
+
+
+/*Images*/
+
+.logo-dbd {
+
+    width: 86px;
+}
+
+.main-section-col-first-bgimage::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(../img/killer_trappper_lore_6c1a1a44c5.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: black;
+    clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+    opacity: 0.5; 
+    z-index: 1; 
+
+}
+
+.main-section-col-second-bgimage::before {
+
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(../img/lara-croft-dbd-1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: black;
+    clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+    opacity: 0.5; 
+    z-index: 1; 
+}
+
+.main-section-col-first-bgimage, .main-section-col-second-bgimage {
+
+    position: relative;
+    overflow: hidden;
+    
+}
+
+.logo-dbd-tomb-raider {
+
+    width: 70%;
+    position: absolute;
+    top: 100%;
+    left: 20%;
+}
+
+.img-lara-croft {
+
+    width: 100%;
+    height: 100%;
+}
+
+
+/*================================Main Section================================*/
+
+#main-section {
+
+    box-shadow: 0px 10px 50px #121212;
+    position: relative;
+    z-index: 3;
+}
+
+.main-section-button {
+
+    background-color:#c80000;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:raleway;
+	font-size:17px;
+	font-weight:bold;
+	padding:17px 33px;
+	text-decoration:none;
+	text-shadow:0px 0px 0px #c80000;
+    margin: 0 40px;
+}
+
+.main-section-button:hover {
+
+    background-color:#f00000;
+}
+
+.main-section-col-padding {
+
+    position: relative;
+    z-index: 2; 
+    padding: 15% 2%;
+}
+
+.main-section-gutter {
+
+    --bs-gutter-x: -0.5rem !important;
+}
+
+/*================================About Section================================*/
+
+.about-col-img {
+
+    display: flex;
+    align-items: center;
+}
+
+.bg-img-about {
+
+    position: relative;
+    overflow: hidden;
+}
+
+.bg-img-about::before {
+
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    z-index: 1;
+    background-image: url(../img/background-bg.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-color: #121212;
+    
+}
+
+.col-about {
+
+    position: relative;
+    z-index: 2;
+}
+
+/*================================HowToPlay Section================================*/
+
+#how-to-play-section {
+
+    position: relative;
+    text-align: center;
+    box-shadow: 0px 10px 36px #121212;
+}
+
+.how-to-play-col-align-left {
+
+    text-align: start;
+}
+
+.survivor-icon, .killer-icon {
+
+    width: 50%;
+}
+
+.custom-bold-survival {
+
+    font-weight: 900;
+    text-decoration: underline 2px;
+    text-underline-offset: 4px;
+
+}
+
+.custom-bold-killer {
+
+    font-weight: 900;
+    text-decoration: underline 2px;
+    text-underline-offset: 4px;
+    color: #AA1A18;
+
+}
+
+/*================================Updates Section================================*/
+
+.lara-croft-details {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.lara-role {
+
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.lara-role-icon {
+
+    width: 10%;
+    margin: 5% 10px 5% 40px;
+}
+
+.lara-role-description {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 0;
+    padding: 0;
+}
+
+.bg-dirty-texture {
+
+    background-position: center;
+    background-image: url(../img/dirt-1626524_960_720.png);
+
+}
+
+/*================================Perk Section================================*/
+
+#perk-section {
+
+    box-shadow: 0px 10px 50px #121212;
+}
+
+.perks-display {
+
+    display: flex;
+    flex-direction: column;
+}
+
+.perk-title {
+
+    font-size: 22px;
+    font-weight: 900;
+}
+
+/*================================Responsive================================*/
+
+@media (max-width: 1200px) {
+
+    .about-col-img {
+
+        position: absolute;
+        display: none;
+    }
+    
+}
+
+.col-padding {
+
+    padding-top: 10%;
+}
+
+.col-padding-update {
+
+    padding: 5% 40px;
+}
+
+.align-center {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

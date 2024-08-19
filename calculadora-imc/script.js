@@ -38,6 +38,19 @@ function imcCalculator(weight, heightStart) {
 
   const calculatorSection = document.querySelector(".calculator-section")
 
+//Trocar de cor
+function colorUpdate(newClass){
+  const classes = ["color-ideal-weight", "color-overweight", "color-underweight"]
+  //Verifica cada classe do array e remove qualquer classe que não seja a nova
+  classes.forEach(classe => {
+    if (calculatorSection.classList.contains(classe) && classe !== newClass) {
+        calculatorSection.classList.remove(classe);
+    }
+})
+  //Adiciona a nova classe
+  calculatorSection.classList.add(newClass)     
+}
+
 //Resultado Final
 function imcResults(finalCalcIMCResults){
 
@@ -48,41 +61,19 @@ function imcResults(finalCalcIMCResults){
 
     textResult = "Seu IMC é: " + roundIMCResults + " e você está abaixo do peso ideal";
 
-    if(calculatorSection.classList.contains("color-ideal-weight")){
-      calculatorSection.classList.remove("color-ideal-weight")
-
-    } else if (calculatorSection.classList.contains("color-overweight")){
-      calculatorSection.classList.remove("color-overweight")
-    }
-
-    calculatorSection.classList.toggle("color-underweight")  
+    colorUpdate("color-underweight")
     
   } else if (finalCalcIMCResults >= 18.5 && finalCalcIMCResults < 25) {
 
     textResult = "Seu IMC é: " + roundIMCResults + " Parabéns! Você está no peso ideal";
 
-    if(calculatorSection.classList.contains("color-underweight")){
-      calculatorSection.classList.remove("color-underweight")
-
-    } else if (calculatorSection.classList.contains("color-overweight")){
-      calculatorSection.classList.remove("color-overweight")
-    }
-
-    calculatorSection.classList.toggle("color-ideal-weight")
+    colorUpdate("color-ideal-weight")
     
   } else if (finalCalcIMCResults >= 25) {
 
     textResult = "Seu IMC é: " + roundIMCResults + " Cuidado! Você está acima do peso";
 
-    if(calculatorSection.classList.contains("color-underweight")){
-      calculatorSection.classList.remove("color-underweight")
-
-    } else if (calculatorSection.classList.contains("color-ideal-weight")){
-      calculatorSection.classList.remove("color-ideal-weight")
-    }
-
-    calculatorSection.classList.toggle("color-overweight")
-
+    colorUpdate("color-overweight")
   }
 
   //Acrescentando a variável textResult para facilitar a escrita

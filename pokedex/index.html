@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Favicon-->
+    <link rel="shortcut icon" href="./img/favicon/favicon.ico" type="image/x-icon">
+    <!--CSS Link-->
+    <link rel="stylesheet" href="./css/styles.css">
+    <!--JavaScript Link-->
+    <script defer src="./js/script.js"></script>
+    <!--CDN GoogleFonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Micro+5&family=Oxanium:wght@200..800&family=Pixelify+Sans:wght@400..700&display=swap"
+        rel="stylesheet">
+
+    <title>Pokédex</title>
+</head>
+
+<body>
+    <main>
+        <img class="pokemon-img" src="./img/interrogacao.gif" alt="Pokemon">
+        <img class="pokedex-img" src="./img/pokedex-template.png" alt="Pokedex">
+
+        <div class="buttons">
+            <button class="prev-btn">&lt;</button>
+            <button class="next-btn">&gt;</button>
+        </div>
+
+        <h1 class="pokedex-info">
+            <span class="pokemon-number"></span>
+            <span class="name-hifen"></span>
+            <span class="pokemon-name">?</span>
+        </h1>
+
+
+        <form class="form">
+            <input class="pokemon-search" placeholder="Nome ou Número" type="search" required>
+        </form>
+        <a href="./info.html" class="info-button">Info</a>
+
+
+
+    </main>
+
+</body>
+
+</html>

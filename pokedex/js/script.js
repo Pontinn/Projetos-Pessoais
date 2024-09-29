@@ -13,7 +13,12 @@ const input = document.querySelector(".pokemon-search");
 const nextButton = document.querySelector(".next-btn");
 const prevButton = document.querySelector(".prev-btn");
 
-let defaultId = 0;
+const urlParams = new URLSearchParams(window.location.search);
+const pokemonId = urlParams.get("pokemon");
+
+console.log(pokemonId);
+
+let defaultId = pokemonId;
 
 async function getPokemon(pokemon) {
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
@@ -68,8 +73,10 @@ prevButton.addEventListener("click", () => {
   setPokemon(defaultId);
 });
 
-/*
-let datatest = localStorage.getItem("pokemon");
+const infoButton = document.querySelector(".info-button");
 
-let dataTestConvert = JSON.parse(datatest);
-*/
+infoButton.addEventListener("click", () => {
+  window.location.replace(`./info.html?pokemon=${defaultId}`);
+});
+
+setPokemon(defaultId);

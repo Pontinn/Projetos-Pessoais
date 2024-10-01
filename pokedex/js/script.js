@@ -16,7 +16,7 @@ const prevButton = document.querySelector(".prev-btn");
 const urlParams = new URLSearchParams(window.location.search);
 const pokemonId = urlParams.get("pokemon");
 
-console.log(pokemonId);
+const infoButton = document.querySelector(".info-button");
 
 let defaultId = pokemonId;
 
@@ -33,12 +33,17 @@ async function setPokemon(pokemon) {
   pokemonName.innerHTML = data.name;
   nameHifen.innerHTML = "-";
   defaultId = pokemonNumber.innerHTML = data.id;
+
+  //Houve um bug em relação ao tamanhos, sinceramente não sei se essa foi a melhor forma de resolver mas resolvi
   if (defaultId < 649) {
     pokemonImg.src =
       data["sprites"]["versions"]["generation-v"]["black-white"]["animated"][
         "front_default"
       ];
+    pokemonImg.style.width = "18%";
+    pokemonImg.style.left = "39%";
   } else {
+    //Acima do numero 649 a API não possuia mais nenhum GIF dos pokemons, então mudei a navegação para imagens estaticas
     pokemonImg.src =
       data.sprites.versions["generation-v"]["black-white"]["front_default"];
     pokemonImg.style.width = "31%";
@@ -59,12 +64,14 @@ nextButton.addEventListener("click", () => {
   setPokemon(defaultId);
 });
 
+//Fazendo com que caso o numero de pokemon seja 0 e eu aperte para retroceder, ele continua sendo 0.
 prevButton.addEventListener("click", () => {
   defaultId--;
 
   if (defaultId < 0) {
     defaultId = 0;
   } else if (defaultId === 0) {
+    //Quando defaultId for zero eu quero deixar uma interroção na tela e no nome
     pokemonImg.src = "./img/interrogacao.gif";
     pokemonName.innerHTML = "?";
     nameHifen.innerHTML = "";
@@ -73,10 +80,9 @@ prevButton.addEventListener("click", () => {
   setPokemon(defaultId);
 });
 
-const infoButton = document.querySelector(".info-button");
-
 infoButton.addEventListener("click", () => {
   window.location.replace(`./info.html?pokemon=${defaultId}`);
 });
 
+//Chamando a função para que ela ja seja iniciada assim que abrir o site
 setPokemon(defaultId);

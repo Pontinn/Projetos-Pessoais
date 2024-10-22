@@ -3,7 +3,7 @@ import chalk from "chalk";
 import inquirer from "inquirer";
 
 //Importando modulo interno
-import fs, { access } from "fs";
+import fs from "fs";
 
 //Interface no terminal que tenhas as seguintes opções:
 //Criar conta - Vai receber um nome e caso não exista um diretório, criar um juntamente com um json com os dados (nome e balance)
@@ -36,7 +36,7 @@ function interfaceApp() {
       const action = answer["action"];
       switch (action) {
         case "Criar conta":
-          //
+          createAccount();
           break;
         case "Depositar":
           //
@@ -59,4 +59,37 @@ function interfaceApp() {
     .catch((err) => {
       if (err) throw err;
     });
+}
+
+//Criar um diretório, caso não exista.
+//Criar um arquivo txt dentro do diretório com nome da conta e balance zerado.
+function createAccount() {
+  inquirer
+    .prompt([
+      {
+        name: "action",
+        message: "Digite um nome para sua conta",
+      },
+    ])
+    .then((answer) => {
+      const accountName = answer["action"];
+      // console.log(accountName);
+      const dir = "./accounts";
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
+
+      getAccount(accountName);
+
+      interfaceApp();
+    })
+    .catch((err) => {
+      if (err) throw err;
+    });
+}
+
+function getAccount(accountName) {
+  if (!fs.existsSync(accountName)) {
+    fs.appendFileSync(`./accounts/${accountName}.txt`, "Olá", "utf8");
+  }
 }

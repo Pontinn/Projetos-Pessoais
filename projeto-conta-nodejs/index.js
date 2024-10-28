@@ -39,7 +39,7 @@ function interfaceApp() {
           createAccount();
           break;
         case "Depositar":
-          //
+          deposit();
           break;
         case "Sacar":
           //
@@ -87,4 +87,37 @@ function createAccount() {
     .catch((err) => {
       if (err) throw err;
     });
+}
+
+function deposit() {
+  inquirer
+    .prompt([
+      {
+        name: "accountName",
+        message: "Digite o nome da conta que deseja realizar o depósito",
+      },
+    ])
+    .then((answer) => {
+      const accountName = answer["accountName"];
+
+      if (!verifyAccount(accountName)) {
+        return deposit();
+      }
+    })
+    .catch((err) => {
+      if (err) throw err;
+    });
+}
+
+function verifyAccount(accountName) {
+  if (!fs.existsSync(`./accounts/${accountName}.json`)) {
+    console.log(
+      chalk.bgRed.black(
+        "Esta conta não existe, certifique-se que não houve nenhum erro de digitação"
+      )
+    );
+    return false;
+  }
+
+  return true;
 }

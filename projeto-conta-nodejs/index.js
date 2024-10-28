@@ -78,18 +78,13 @@ function createAccount() {
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
       }
-
-      getAccount(accountName);
+      if (!fs.existsSync(accountName)) {
+        fs.appendFileSync(`./accounts/${accountName}.json`, '{"balance": 0}');
+      }
 
       interfaceApp();
     })
     .catch((err) => {
       if (err) throw err;
     });
-}
-
-function getAccount(accountName) {
-  if (!fs.existsSync(accountName)) {
-    fs.appendFileSync(`./accounts/${accountName}.txt`, "Olá", "utf8");
-  }
 }

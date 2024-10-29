@@ -42,7 +42,7 @@ function interfaceApp() {
           deposit();
           break;
         case "Sacar":
-          //
+          withdraw();
           break;
         case "Consultar saldo":
           //
@@ -93,6 +93,8 @@ function createAccount() {
     });
 }
 
+//Solicitar nome da conta e verificar a existência dessa conta
+//Solicitar o valor de deposito e acrescentar a quantia atual
 function deposit() {
   inquirer
     .prompt([
@@ -129,6 +131,8 @@ function deposit() {
     });
 }
 
+//Verificação de conta
+//Se não existir, mostrar mensagem de erro
 function verifyAccount(accountName) {
   if (!fs.existsSync(`./accounts/${accountName}.json`)) {
     console.log(
@@ -142,12 +146,9 @@ function verifyAccount(accountName) {
   return true;
 }
 
+//Verificar se foi digitado um valor válido
+//Adicionar a quantia atual
 function addAmount(accountName, amount) {
-  if (!amount) {
-    console.log(chalk.bgRed.black("Valor invalido, tente novamente!"));
-    deposit();
-  }
-
   const data = JSON.parse(
     fs.readFileSync(`./accounts/${accountName}.json`, {
       encoding: "utf8",
@@ -155,16 +156,89 @@ function addAmount(accountName, amount) {
     })
   );
 
-  const newBalance = data.balance + parseInt(amount);
+  if (!amount) {
+    console.log(chalk.bgRed.black("Valor invalido, tente novamente!"));
+    deposit();
+  } else {
+    const newBalance = data.balance + parseInt(amount);
 
-  fs.writeFileSync(
-    `./accounts/${accountName}.json`,
-    `{"balance": ${newBalance}}`
+    fs.writeFileSync(
+      `./accounts/${accountName}.json`,
+      `{"balance": ${newBalance}}`
+    );
+
+    console.log(
+      chalk.bgGreen.black(
+        `O valor de R$${amount} foi depositado à sua conta com sucesso!`
+      )
+    );
+  }
+}
+
+//Solicitar nome da conta e verificar a existência dessa conta
+//Solicitar o valor de saque e subtrair a quantia atual
+function withdraw() {
+  inquirer
+    .prompt([
+      {
+        name: "accountName",
+        message: "Digite o nome da conta que deseja realizar o saque",
+      },
+    ])
+    .then((answer) => {
+      const accountName = answer["accountName"];
+
+      if (!verifyAccount(accountName)) {
+        return withdraw();
+      }
+
+      inquirer
+        .prompt([
+          {
+            name: "amount",
+            message: `Digite o valor que deseja sacar da conta: ${accountName}`,
+          },
+        ])
+        .then((answer) => {
+          const amount = answer["amount"];
+          removeAmount(accountName, amount);
+        })
+        .catch((err) => {
+          if (err) throw err;
+        });
+    })
+    .catch((err) => {
+      if (err) throw err;
+    });
+}
+
+//Verificar se foi digitado um valor válido
+//Remover da quantia atual
+function removeAmount(accountName, amount) {
+  const data = JSON.parse(
+    fs.readFileSync(`./accounts/${accountName}.json`, {
+      encoding: "utf8",
+      flag: "r",
+    })
   );
 
-  console.log(
-    chalk.bgGreen.black(
-      `O valor de R$${amount} foi depositado à sua conta com sucesso!`
-    )
-  );
+  if (!amount || amount > data.balance) {
+    console.log(chalk.bgRed.black("Valor invalido, tente novamente!"));
+    interfaceApp();
+  } else {
+    const newBalance = data.balance - parseInt(amount);
+
+    fs.writeFileSync(
+      `./accounts/${accountName}.json`,
+      `{"balance": ${newBalance}}`
+    );
+
+    console.log(
+      chalk.bgGreen.black(
+        `O valor de R$${amount} foi sacado à sua conta com sucesso!`
+      )
+    );
+
+    interfaceApp();
+  }
 }

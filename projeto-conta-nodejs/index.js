@@ -73,16 +73,20 @@ function createAccount() {
     ])
     .then((answer) => {
       const accountName = answer["action"];
+
       // console.log(accountName);
       const dir = "./accounts";
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
       }
-      if (!fs.existsSync(accountName)) {
-        fs.appendFileSync(`./accounts/${accountName}.json`, '{"balance": 0}');
-      }
 
-      interfaceApp();
+      if (!accountName) {
+        console.log(chalk.bgRed.black("Por favor, digite um valor válido!"));
+        createAccount();
+      } else if (!fs.existsSync(accountName)) {
+        fs.appendFileSync(`./accounts/${accountName}.json`, '{"balance": 0}');
+        interfaceApp();
+      }
     })
     .catch((err) => {
       if (err) throw err;
@@ -103,6 +107,22 @@ function deposit() {
       if (!verifyAccount(accountName)) {
         return deposit();
       }
+
+      inquirer
+        .prompt([
+          {
+            name: "amount",
+            message: `Digite o valor que deseja depositar à conta: ${accountName}`,
+          },
+        ])
+        .then((answer) => {
+          const amount = answer["amount"];
+          addAmount(accountName, amount);
+          interfaceApp();
+        })
+        .catch((err) => {
+          if (err) throw err;
+        });
     })
     .catch((err) => {
       if (err) throw err;
@@ -120,4 +140,31 @@ function verifyAccount(accountName) {
   }
 
   return true;
+}
+
+function addAmount(accountName, amount) {
+  if (!amount) {
+    console.log(chalk.bgRed.black("Valor invalido, tente novamente!"));
+    deposit();
+  }
+
+  const data = JSON.parse(
+    fs.readFileSync(`./accounts/${accountName}.json`, {
+      encoding: "utf8",
+      flag: "r",
+    })
+  );
+
+  const newBalance = data.balance + parseInt(amount);
+
+  fs.writeFileSync(
+    `./accounts/${accountName}.json`,
+    `{"balance": ${newBalance}}`
+  );
+
+  console.log(
+    chalk.bgGreen.black(
+      `O valor de R$${amount} foi depositado à sua conta com sucesso!`
+    )
+  );
 }

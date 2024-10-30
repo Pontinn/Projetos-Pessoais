@@ -48,7 +48,7 @@ function interfaceApp() {
           checkBalance();
           break;
         case "Excluir conta":
-          //
+          deleteAccount();
           break;
         case "Sair":
           console.log(chalk.bgBlue.black("Obrigado por utilizar nosso App!"));
@@ -274,4 +274,55 @@ function checkBalance() {
     .catch((err) => {
       if (err) throw err;
     });
+}
+
+function deleteAccount() {
+  inquirer
+    .prompt([
+      {
+        name: "accountName",
+        message: "Digite o nome da conta que deseja deletar:",
+      },
+    ])
+    .then((answer) => {
+      const accountName = answer["accountName"];
+      if (!verifyAccount(accountName)) {
+        return interfaceApp();
+      } else {
+        inquirer
+          .prompt([
+            {
+              name: "confirmationDelete",
+              type: "list",
+              message: `Você tem certeza que deseja excluir a conta ${accountName}? `,
+              choices: ["Sim", "Não"],
+            },
+          ])
+          .then((answer) => {
+            const userResponse = answer["confirmationDelete"];
+
+            if (userResponse === "Sim") {
+              fs.unlinkSync(
+                `./accounts/${accountName}.json`,
+                deleteConfirmation(accountName)
+              );
+            } else {
+              interfaceApp();
+            }
+          })
+          .catch((err) => {
+            if (err) throw err;
+          });
+      }
+    })
+    .catch((err) => {
+      if (err) throw err;
+    });
+}
+
+function deleteConfirmation(accountName) {
+  console.log(
+    chalk.bgGreen.black(`A conta "${accountName}" foi excluida com sucesso!`)
+  );
+  interfaceApp();
 }

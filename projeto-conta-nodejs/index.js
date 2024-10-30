@@ -68,7 +68,7 @@ function createAccount() {
     .prompt([
       {
         name: "action",
-        message: "Digite um nome para sua conta",
+        message: "Digite um nome para sua conta:",
       },
     ])
     .then((answer) => {
@@ -100,7 +100,7 @@ function deposit() {
     .prompt([
       {
         name: "accountName",
-        message: "Digite o nome da conta que deseja realizar o depósito",
+        message: "Digite o nome da conta que deseja realizar o depósito:",
       },
     ])
     .then((answer) => {
@@ -182,7 +182,7 @@ function withdraw() {
     .prompt([
       {
         name: "accountName",
-        message: "Digite o nome da conta que deseja realizar o saque",
+        message: "Digite o nome da conta que deseja realizar o saque:",
       },
     ])
     .then((answer) => {
@@ -276,6 +276,9 @@ function checkBalance() {
     });
 }
 
+//Solicitar nome da conta e verificar existência dessa conta.
+//Confirmar se dejesa mesmo deletar a conta.
+//Excluir conta.
 function deleteAccount() {
   inquirer
     .prompt([

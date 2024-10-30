@@ -45,7 +45,7 @@ function interfaceApp() {
           withdraw();
           break;
         case "Consultar saldo":
-          //
+          checkBalance();
           break;
         case "Excluir conta":
           //
@@ -93,8 +93,8 @@ function createAccount() {
     });
 }
 
-//Solicitar nome da conta e verificar a existência dessa conta
-//Solicitar o valor de deposito e acrescentar a quantia atual
+//Solicitar nome da conta e verificar a existência dessa conta.
+//Solicitar o valor de deposito e acrescentar a quantia atual.
 function deposit() {
   inquirer
     .prompt([
@@ -131,8 +131,8 @@ function deposit() {
     });
 }
 
-//Verificação de conta
-//Se não existir, mostrar mensagem de erro
+//Verificação de conta.
+//Se não existir, mostrar mensagem de erro.
 function verifyAccount(accountName) {
   if (!fs.existsSync(`./accounts/${accountName}.json`)) {
     console.log(
@@ -146,8 +146,8 @@ function verifyAccount(accountName) {
   return true;
 }
 
-//Verificar se foi digitado um valor válido
-//Adicionar a quantia atual
+//Verificar se foi digitado um valor válido.
+//Adicionar a quantia atual.
 function addAmount(accountName, amount) {
   const data = JSON.parse(
     fs.readFileSync(`./accounts/${accountName}.json`, {
@@ -175,8 +175,8 @@ function addAmount(accountName, amount) {
   }
 }
 
-//Solicitar nome da conta e verificar a existência dessa conta
-//Solicitar o valor de saque e subtrair a quantia atual
+//Solicitar nome da conta e verificar a existência dessa conta.
+//Solicitar o valor de saque e subtrair a quantia atual.
 function withdraw() {
   inquirer
     .prompt([
@@ -212,8 +212,8 @@ function withdraw() {
     });
 }
 
-//Verificar se foi digitado um valor válido
-//Remover da quantia atual
+//Verificar se foi digitado um valor válido.
+//Remover da quantia atual.
 function removeAmount(accountName, amount) {
   const data = JSON.parse(
     fs.readFileSync(`./accounts/${accountName}.json`, {
@@ -241,4 +241,37 @@ function removeAmount(accountName, amount) {
 
     interfaceApp();
   }
+}
+
+//Solicitar nome da conta e verificar existência dessa conta.
+//Mostrar no terminal o valor atual de balance da conta digitada.
+function checkBalance() {
+  inquirer
+    .prompt([
+      {
+        name: "accountName",
+        message: "Digite o nome da conta que deseja consultar o saldo:",
+      },
+    ])
+    .then((answer) => {
+      const accountName = answer["accountName"];
+      if (!verifyAccount(accountName)) {
+        return checkBalance();
+      }
+
+      const checkedBalance = JSON.parse(
+        fs.readFileSync(`./accounts/${accountName}.json`, {
+          encoding: "utf8",
+          flag: "r",
+        })
+      );
+
+      console.log(
+        chalk.bgBlue.black(`Seu saldo atual é de R$${checkedBalance.balance}!`)
+      );
+      interfaceApp();
+    })
+    .catch((err) => {
+      if (err) throw err;
+    });
 }
